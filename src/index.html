@@ -1,0 +1,31 @@
+<html>
+<body>
+    <h2>Stack Exchange API Demo</h2>
+
+    <div>Search Science Fiction & Fantasy (scifi) for:</div>
+    <input id="searchTerm" value="Hobbit" />
+    <button id="buttonSearch">search</button>
+
+    <div id="">
+        <ul id="results" />
+    </div>
+
+    <script type='text/javascript' src='http://code.jquery.com/jquery-2.1.0.min.js'></script>
+
+    <script type="text/javascript">
+        $("#buttonSearch").bind("click", function() {
+            var searchTerm = $("#searchTerm").val();
+            var url = "http://api.stackexchange.com/2.2/search?site=scifi&intitle=" + searchTerm;
+            $.ajax(url)
+                .done(function(response) {
+                    var results = $("#results");
+                    results.empty();
+                    for (var i =0; i<response.items.length; i++) {
+                      results.append("<li>" + response.items[i].title + "</li>");
+                    };
+                })
+        });
+    </script>
+
+</body>
+</html>
