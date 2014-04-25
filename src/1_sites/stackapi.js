@@ -1,7 +1,8 @@
+// Define apiBaseUrl and method here:
 var apiBaseUrl = "http://api.stackexchange.com/2.2";
+var method = "/sites";
 
-var url = apiBaseUrl + "/sites";
-$.ajax(url)
+$.ajax(apiBaseUrl + method)
     .done(function(response) {
         for (var i =0; i<response.items.length; i++) {
             var icon_url = response.items[i].favicon_url;
