@@ -4,16 +4,14 @@ var method = "/questions";
 // Define parameters here
 var parameters = "?order=desc&sort=votes&site=scifi";
 
-$.ajax(apiBaseUrl + method + parameters)
+$.get(apiBaseUrl + method + parameters)
     .done(function(response) {
-        for (var i =0; i<response.items.length; i++) {
-            var title = response.items[i].title;
-            var link = response.items[i].link;
-            var score = response.items[i].score;
-
-            $("#results").append("<li><a href='"+ link +"'>" + title + "</a> (score: "+ score +")</li>");
-        }
+        $.each(response.items, function(index, item) {
+            $("#results").append("<li><a href='"+ item.link +"'>" + item.title
+                + "</a> (net votes: "+ item.score +")</li>");
+        });
     })
-    .error( function() {
-        $("#results").append("<span>Error: could not connect to API. Please make sure to define apiBaseUrl and method correctly.</span>")
+    .error(function(e) {
+        $("#results").append("Error: " + e.responseText);
     });
+
